@@ -53,5 +53,5 @@ Sí, el código es abierto y puede modificarse para otros casos de uso similares
 
 Desarrollado por *Facundo Chiarenza*
 
-Colaboraciones, mejoras y sugerencias son bienvenidas vía pull request o issues en este repositorio.
+Colaboraciones, mejoras y sugerencias son bienvenidas vía **pull request** o **issues** en este repositorio.
 
