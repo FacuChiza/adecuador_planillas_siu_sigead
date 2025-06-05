@@ -51,7 +51,7 @@ Sí, el código es abierto y puede modificarse para otros casos de uso similares
 
 ## Autor 👨‍💻
 
-Desarrollado por *Facundo Chiarenza*
+Desarrollado por *Facundo L. Chiarenza* , full stack dev. 
 
 Colaboraciones, mejoras y sugerencias son bienvenidas vía **pull request** o **issues** en este repositorio.
 
