@@ -80,9 +80,9 @@ def upload_file():
             # Crear DataFrame para subir notas
             subir_notas_df = pd.DataFrame()
             subir_notas_df['documento'] = df['DNI']
-            subir_notas_df['nota_regular'] = df['Nota']
-            subir_notas_df['fecha_regular'] = fecha_regular 
-            subir_notas_df['nota_promocion'] = ""
+            subir_notas_df['nota_regularidad'] = df['Nota']
+            subir_notas_df['fecha_regularidad'] = fecha_regular 
+            subir_notas_df['nota_promocion'] = df['Nota']
             subir_notas_df['fecha_promocion'] = fecha_promocion 
 
             # Guardar nuevo archivo de notas en /tmp/
@@ -101,7 +101,7 @@ def upload_file():
         except Exception as e:
             # En caso de error durante el procesamiento
             traceback.print_exc()  # Imprimir el error en la consola del servidor
-            return jsonify({"error": "Error en el procesamiento del archivo"}), 500
+            return jsonify({"error": " ⚠️ Error en el procesamiento del archivo"}), 500
     
     # Si es GET, renderizar la plantilla principal
     return render_template('index.html')
