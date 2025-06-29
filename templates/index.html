@@ -7,24 +7,24 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="../static/images/icono.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../static/images/icono.ico" type="image/x-icon">
-
 </head>
 <body>
     <!-- Cabecera con logo institucional -->
     <header>
-        <img src="{{ url_for('static', filename='images/logo_principal.jpg') }}" alt="Logo UTN" id="logo">
-    </header>
+        <header class="header-container">
+    <div class="header-content">
+        <img src="{{ url_for('static', filename='images/logo_principal.jpg') }}" alt="Logo UTN" class="header-logo">
 
-    <!-- Título de la aplicación -->
-    <div class="split-heading">
-        <span>Adecuación de Planillas</span><br>
-        <span>SIGEAD - SIU Guaraní</span>
+        <div class="header-text">
+            <h1 class="titulo-principal">Adecuación de Planillas</h1>
+            <h2 class="subtitulo-principal">SIGEAD - SIU Guaraní</h2>
+        </div>
     </div>
+    </header>
     
     <!-- Formulario para carga de archivos -->
     <form action="/" method="post" enctype="multipart/form-data" id="upload-form">
 
-        <!-- Contenedor para mensajes de error mejorado -->
         <div id="format-error-container"></div>
         
         <!-- Modal de requisitos que se mostrará junto con el error -->
@@ -33,7 +33,7 @@
                 <span class="close-button">&times;</span>
                 <h3>Requisitos del archivo Excel</h3>
                 <ul id="requirements-list">
-                    <li>El archivo debe ser formato .xlsx</li>
+                    <li>El archivo debe ser formato .xlsx o .xls</li>
                     <li>Debe contener las columnas: Legajo, Nota, Promocion, Apellido, Nombre, DNI, Edicion, Fecha de inicio y Facultad regional</li>
                     <li>El archivo sólo debe contener la tabla con los datos, sin titulos o textos adicionales fuera de la tabla</li>
                     <li>Solo se procesarán registros de la Facultad Regional "FRBA"</li>
