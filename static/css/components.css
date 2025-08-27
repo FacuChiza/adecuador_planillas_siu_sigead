@@ -1,0 +1,593 @@
+/* ========================================
+   COMPONENTES ESPECÍFICOS
+   ======================================== */
+
+/* Modal de requisitos */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.modal-content h3 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #757575;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+/* Secciones del modal */
+.modal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Sección principal de requisitos */
+.section-main {
+    background-color: #f8f9fa;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+.section-main h4 {
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.section-main ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.section-main li {
+    margin-bottom: 8px;
+    color: #555;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.section-main ol {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.section-main ol li {
+    margin-bottom: 4px;
+    color: #666;
+    font-size: 13px;
+}
+
+/* Sección de ejemplo */
+.section-example {
+    background-color: #ffffff;
+    padding: 18px;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.section-example h4 {
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Contenedor de imagen centrado */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#example-image {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 10px 0;
+}
+
+#example-image:hover {
+    transform: scale(1.02);
+}
+
+.image-caption {
+    color: #666;
+    font-size: 14px;
+    margin-top: 12px;
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* Sección combinada de notas y consejos */
+.section-combined {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.notes-section {
+    background-color: #fff3cd;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+}
+
+.notes-section h4 {
+    color: #856404;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.notes-section ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.notes-section li {
+    margin-bottom: 6px;
+    color: #856404;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.tips-section {
+    background-color: #d1ecf1;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #17a2b8;
+}
+
+.tips-section h4 {
+    color: #0c5460;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tips-section ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.tips-section li {
+    margin-bottom: 6px;
+    color: #0c5460;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Lista de requisitos */
+#requirements-list {
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+/* Lightbox */
+#lightbox {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#lightbox img {
+    animation: zoomIn 0.3s ease-in-out;
+}
+
+@keyframes zoomIn {
+    from { 
+        opacity: 0; 
+        transform: scale(0.8); 
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+/* Drop Zone */
+#drop-zone {
+    width: 80%;
+    max-width: 600px; 
+    height: 50px;
+    border: 2px dashed #3498db;
+    border-radius: 10px;
+    background-color: #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+.drag-over {
+    border-color: #4a90e2 !important;
+    background-color: #797f87 !important;
+}
+
+#drop-zone.file-loaded {
+    background-color: rgba(46, 204, 113, 0.2);
+    border-color: #2ecc71;
+    color: #ffffff;
+}
+
+#drop-zone label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#drop-zone label span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+#file-list {
+    padding-top: 40px;
+    font-size: 14px;
+    color: #ddd;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Botones */
+#subir_archivo {
+    background-color: #1a4472;
+    color: white;
+    border: none;
+    padding: 12px 150px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px auto;
+    transition: background-color 0.3s ease;
+    font-size: 15px;
+    display: block; 
+    width: fit-content;
+}
+
+#subir_archivo:hover {
+    background-color: #3a7ca5;
+}
+
+#restart-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #a05057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    width: auto;
+    text-align: center;
+}
+
+#restart-button:hover {
+    background-color: #BC8F8F; 
+}
+
+/* Botón de ayuda */
+.help-btn-small {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-style: normal;
+    margin-top: 8px;
+    position: relative;
+    backdrop-filter: blur(5px);
+}
+
+.help-btn-small::before {
+    content: '❓';
+    margin-right: 6px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.help-btn-small:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.help-btn-small:active {
+    transform: translateY(0);
+}
+
+/* Mensajes de error */
+.format-error {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffeded 100%);
+    border-left: 4px solid #ff5252;
+    color: #d32f2f;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(255, 82, 82, 0.15);
+    animation: slideInError 0.4s ease-out;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.format-error::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff5252, #ff7676, #ff5252);
+}
+
+.error-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.error-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.error-message {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #d32f2f;
+}
+
+.detailed-errors {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    border-left: 3px solid #ff9800;
+}
+
+.errors-title {
+    font-weight: 600;
+    color: #e65100;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.errors-list {
+    margin: 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.errors-list li {
+    color: #d84315;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    padding: 2px 0;
+}
+
+.errors-list li:before {
+    content: '⚠️';
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+.requirements-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    align-self: flex-start;
+}
+
+.requirements-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.requirements-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.requirements-btn:hover::before {
+    left: 100%;
+}
+
+.requirements-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+.btn-text {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Animaciones para el error */
+@keyframes slideInError {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos responsivos para mensajes de error */
+@media (max-width: 768px) {
+    .format-error {
+        padding: 15px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .error-icon {
+        align-self: center;
+        font-size: 20px;
+    }
+    
+    .requirements-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+    }
+    
+    .error-message {
+        font-size: 14px;
+        text-align: center;
+    }
+    
+    .detailed-errors {
+        margin-top: 12px;
+        padding: 10px;
+    }
+    
+    .errors-list li {
+        font-size: 12px;
+        text-align: left;
+    }
+    
+    .help-btn-small {
+        width: 100%;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Contenedor de mensajes de error */
+#format-error-container {
+    margin-bottom: 20px;
+    width: 100%;
+    display: none;
+}
+
+/* Sección de ayuda */
+.help-section {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.help-btn {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.help-btn:hover {
+    background-color: #e67e22;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Planillas SIU Guaraní</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="icon" href="../static/images/icono.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../static/images/icono.ico" type="image/x-icon">
 </head>
@@ -21,7 +22,7 @@
         </div>
     </div>
     </header>
-    
+
     <!-- Formulario para carga de archivos -->
     <form action="/" method="post" enctype="multipart/form-data" id="upload-form">
 
@@ -31,19 +32,66 @@
         <div id="requirements-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h3>Requisitos del archivo Excel</h3>
-                <ul id="requirements-list">
-                    <li>El archivo debe ser formato .xlsx o .xls</li>
-                    <li>Debe contener las columnas: Legajo, Nota, Promocion, Apellido, Nombre, DNI, Edicion, Fecha de inicio y Facultad regional</li>
-                    <li>El archivo sólo debe contener la tabla con los datos, sin titulos o textos adicionales fuera de la tabla</li>
-                    <li>Solo se procesarán registros de la Facultad Regional "FRBA"</li>
-                </ul>
-                <div class="example-container">
-                    <h4>Ejemplo de formato correcto:</h4>
-                    <a href="#" id="example-image-link">
-                        <img id="example-image" src="{{ url_for('static', filename='images/ejemplo.png') }}" alt="Ejemplo de Excel válido">
-                    </a>
-                    <p class="image-caption">Haga clic en la imagen para ampliar</p>
+                <h3>📋 Requisitos del Archivo Excel</h3>
+                
+                <div class="modal-sections">
+                    <!-- Sección 1: Requisitos principales -->
+                    <div class="section-main">
+                        <h4>✅ Requisitos obligatorios:</h4>
+                        <ul id="requirements-list">
+                            <li><strong>Formato:</strong> Archivo .xlsx o .xls (máx. 16MB)</li>
+                            <li><strong>Columnas:</strong> Exactamente 9 columnas en este orden:</li>
+                            <ol>
+                                <li>Legajo</li>
+                                <li>Nota</li>
+                                <li>Promocionado</li>
+                                <li>Apellido</li>
+                                <li>Nombre</li>
+                                <li>DNI</li>
+                                <li>Edicion</li>
+                                <li>Fecha de inicio</li>
+                                <li>Facultad regional</li>
+                            </ol>
+                            <li><strong>Datos:</strong> Solo tabla con datos, sin títulos adicionales</li>
+                            <li><strong>Facultad:</strong> Solo registros con exactamente "FRBA" o "UTN FRBA" (no incluye "FRBA - Buenos Aires" u otras variaciones)</li>
+                            <li><strong>Notas:</strong> Números válidos (1-10)</li>
+                            <li><strong>Campos obligatorios:</strong> Apellido y Nombre deben tener datos (Legajo es opcional)</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección 2: Ejemplo visual -->
+                    <div class="section-example">
+                        <h4>📸 Ejemplo de formato correcto:</h4>
+                        <div class="image-container">
+                            <a href="#" id="example-image-link">
+                                <img id="example-image" src="{{ url_for('static', filename='images/ejemplo.png') }}" alt="Ejemplo de Excel válido">
+                            </a>
+                            <p class="image-caption">Haga clic en la imagen para ampliar</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección 3: Notas y consejos combinados -->
+                    <div class="section-combined">
+                        <div class="notes-section">
+                            <h4>⚠️ Notas importantes:</h4>
+                            <ul>
+                                <li>Archivo limpio sin filas vacías al inicio</li>
+                                <li>Fechas en formato DD/MM/YYYY</li>
+                                <li>DNIs como números válidos</li>
+                                <li>Solo se procesan registros FRBA</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tips-section">
+                            <h4>💡 Consejos:</h4>
+                            <ul>
+                                <li>Verifique 9 columnas exactas</li>
+                                <li>Columna "Facultad regional" debe contener "FRBA"</li>
+                                <li>Notas entre 1 y 10</li>
+                                <li>Sin filas de encabezado adicionales</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,32 +118,70 @@
         <label for="campo4">Periodo Lectivo:</label>
         <input type="text" name="campo4" id="campo4" required>
         
-        <label for="campo4">Fecha Regular</label>
+        <label for="campo5">Fecha Regular:</label>
         <input type="text" name="campo5" id="campo5" required>
 
-        <label for="campo4">Fecha de Promoción</label>
+        <label for="campo6">Fecha de Promoción:</label>
         <input type="text" name="campo6" id="campo6" required>
 
         <button id="subir_archivo" type="submit">Subir Archivo</button>
+        
+        <!-- Botón de ayuda discreto -->
+        <div class="help-section">
+            <button type="button" id="show-requirements-help" class="help-btn-small">
+                ¿Necesitas ayuda con el formato del archivo?
+            </button>
+        </div>
     </form>
 
-    <script>
-    function formatearFecha(input) {
-        input.value = input.value
-            .replace(/\D/g, '')
-            .replace(/(\d{2})(\d)/, '$1/$2')
-            .replace(/(\d{2})\/(\d{2})(\d)/, '$1/$2/$3')
-            .substr(0, 10);
-    }
-
-    document.getElementById('campo5').addEventListener('input', function() {
-        formatearFecha(this);
-    });
-
-    document.getElementById('campo6').addEventListener('input', function() {
-        formatearFecha(this);
-    });
-    </script>
+    <!-- Contenedor centrado para la sección de requisitos -->
+    <div class="requirements-container" style="display: none;">
+        <!-- Sección de reglas y requisitos (oculta inicialmente) -->
+        <div id="requirements-section" class="requirements-section">
+            <div class="requirements-header">
+                <h3>📋 Requisitos del Archivo Excel</h3>
+                <button type="button" id="toggle-requirements" class="toggle-btn">
+                    <span id="toggle-text">Ocultar detalles</span>
+                    <span id="toggle-icon">▲</span>
+                </button>
+            </div>
+            
+            <div id="requirements-content" class="requirements-content">
+                <div class="requirements-grid">
+                    <div class="requirements-list">
+                        <h4>✅ Requisitos obligatorios:</h4>
+                        <ul>
+                            <li><strong>Formato:</strong> Archivo .xlsx o .xls</li>
+                            <li><strong>Columnas:</strong> Exactamente 9 columnas en este orden:</li>
+                            <ol>
+                                <li>Legajo</li>
+                                <li>Nota</li>
+                                <li>Promocionado</li>
+                                <li>Apellido</li>
+                                <li>Nombre</li>
+                                <li>DNI</li>
+                                <li>Edicion</li>
+                                <li>Fecha de inicio</li>
+                                <li>Facultad regional</li>
+                            </ol>
+                            <li><strong>Datos:</strong> Solo la tabla con datos, sin títulos adicionales</li>
+                            <li><strong>Facultad:</strong> Solo se procesan registros con exactamente "FRBA" o "UTN FRBA" (no incluye "FRBA - Buenos Aires" u otras variaciones)</li>
+                            <li><strong>Notas:</strong> Deben ser números válidos (1-10)</li>
+                            <li><strong>Campos obligatorios:</strong> Apellido y Nombre deben tener datos (Legajo es opcional)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-container">
+                        <h4>📸 Ejemplo de formato correcto:</h4>
+                        <a href="#" id="example-image-link">
+                            <img id="example-image" src="{{ url_for('static', filename='images/ejemplo.png') }}" alt="Ejemplo de Excel válido">
+                        </a>
+                        <p class="image-caption">Haga clic en la imagen para ampliar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Sección de descarga (inicialmente oculta) -->
     <div id="download-section" style="display: none;">
@@ -108,253 +194,11 @@
             <button>Descargar Notas</button>
         </a>
         <div style="margin-top: 20px;">
-            <!-- Nuevo botón para reiniciar el proceso -->
             <button id="restart-button" type="button">Cargar Nuevo Archivo</button>
         </div>
     </div>
 
-    <!-- Script para la interactividad de la página -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-        // Referencias a elementos del DOM
-        const fileInput = document.getElementById("file");
-        const fileList = document.getElementById("file-list");
-        const dropZone = document.getElementById("drop-zone");
-        const errorContainer = document.getElementById("format-error-container");
-        const form = document.getElementById("upload-form");
-        const downloadSection = document.getElementById("download-section");
-        const restartButton = document.getElementById("restart-button");
-        const requirementsModal = document.getElementById("requirements-modal");
-        
-        // Campos del formulario para almacenar valores
-        const campo1 = document.getElementById("campo1");
-        const campo2 = document.getElementById("campo2");
-        const campo3 = document.getElementById("campo3");
-        const campo4 = document.getElementById("campo4");
-
-        // Cargar valores guardados si existen
-        loadSavedFormValues();
-
-        // Ocultar sección de descarga al inicio
-        downloadSection.style.display = "none";
-        requirementsModal.style.display = "none";
-
-        // Función para mostrar mensajes de error y requisitos
-        function showError(message) {
-            // Mostrar el mensaje de error
-            errorContainer.innerHTML = `
-                <div class="format-error">
-                    ${message}
-                    <button id="show-requirements" type="button">Ver requisitos de formato</button>
-                </div>
-            `;
-            errorContainer.style.display = "block";
-            errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Configurar el evento para mostrar el modal de requisitos
-            document.getElementById("show-requirements").addEventListener("click", function() {
-                requirementsModal.style.display = "block";
-            });
-            
-            // Configurar el evento para cerrar el modal
-            document.querySelector(".close-button").addEventListener("click", function() {
-                requirementsModal.style.display = "none";
-            });
-            
-            // Cerrar el modal si se hace clic fuera de él
-            window.addEventListener("click", function(event) {
-                if (event.target == requirementsModal) {
-                    requirementsModal.style.display = "none";
-                }
-            });
-            
-            // Configurar la imagen de ejemplo para que se amplíe al hacer clic
-            document.getElementById("example-image-link").addEventListener("click", function(e) {
-                e.preventDefault();
-                
-                const lightbox = document.createElement("div");
-                lightbox.id = "lightbox";
-                lightbox.style.position = "fixed";
-                lightbox.style.top = "0";
-                lightbox.style.left = "0";
-                lightbox.style.width = "100%";
-                lightbox.style.height = "100%";
-                lightbox.style.backgroundColor = "rgba(0,0,0,0.8)";
-                lightbox.style.display = "flex";
-                lightbox.style.justifyContent = "center";
-                lightbox.style.alignItems = "center";
-                lightbox.style.zIndex = "1000";
-                
-                const img = document.createElement("img");
-                img.src = document.getElementById("example-image").src;
-                img.style.maxWidth = "90%";
-                img.style.maxHeight = "90%";
-                img.style.border = "2px solid white";
-                
-                lightbox.appendChild(img);
-                document.body.appendChild(lightbox);
-                
-                lightbox.addEventListener("click", function() {
-                    document.body.removeChild(lightbox);
-                });
-            });
-        }
-
-        function hideError() {
-            errorContainer.innerHTML = "";
-            errorContainer.style.display = "none";
-        }
-
-        fileInput.addEventListener("change", function() {
-            handleFileSelection(this.files);
-        });
-
-        // Configuración de eventos para drag and drop
-        ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
-            dropZone.addEventListener(eventName, function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }, false);
-        });
-
-        ["dragenter", "dragover"].forEach(eventName => {
-            dropZone.addEventListener(eventName, function() {
-                dropZone.classList.add("drag-over");
-            }, false);
-        });
-
-        // Quitar resaltado cuando se sale de la Drop Zone
-        ["dragleave", "drop"].forEach(eventName => {
-            dropZone.addEventListener(eventName, function() {
-                dropZone.classList.remove("drag-over");
-            }, false);
-        });
-
-        // Manejar archivo soltado
-        dropZone.addEventListener("drop", function(event) {
-            let files = event.dataTransfer.files;
-            fileInput.files = files;
-            handleFileSelection(files);
-        });
-
-        function handleFileSelection(files) {
-            if (files.length > 0) {
-                let fileName = files[0].name;
-                let fileExtension = fileName.split('.').pop().toLowerCase();
-                
-                if (fileExtension === 'xls' || fileExtension === 'xlsx') {
-                    fileList.innerText = `📄 Archivo seleccionado: ${fileName}`;
-                    dropZone.classList.add("file-loaded");
-                    hideError();
-                } else {
-                    fileList.innerText = "No hay archivo seleccionado";
-                    dropZone.classList.remove("file-loaded");
-                    showError("El formato del archivo no es válido. Por favor, seleccione un archivo Excel (.xls o .xlsx)");
-                    fileInput.value = "";
-                }
-            } else {
-                fileList.innerText = "No hay archivo seleccionado";
-                dropZone.classList.remove("file-loaded");
-                hideError();
-            }
-        }
-
-        function saveFormValues() {
-            const formValues = {
-                campo1: campo1.value,
-                campo2: campo2.value,
-                campo3: campo3.value,
-                campo4: campo4.value
-            };
-            localStorage.setItem('formValues', JSON.stringify(formValues));
-        }
-
-        function loadSavedFormValues() {
-            const isPageRefresh = !sessionStorage.getItem('formSubmitted');
-            
-            if (isPageRefresh) {
-                campo1.value = '';
-                campo2.value = '';
-                campo3.value = '';
-                campo4.value = '';
-                localStorage.removeItem('formValues');
-            } else {
-                const savedValues = localStorage.getItem('formValues');
-                if (savedValues) {
-                    const formValues = JSON.parse(savedValues);
-                    campo1.value = formValues.campo1 || '';
-                    campo2.value = formValues.campo2 || '';
-                    campo3.value = formValues.campo3 || '';
-                    campo4.value = formValues.campo4 || '';
-                }
-            }
-            
-            sessionStorage.removeItem('formSubmitted');
-        }
-
-        // Validación al enviar el formulario
-        form.addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            if (!fileInput.files || fileInput.files.length === 0) {
-                showError("Debe seleccionar un archivo para continuar");
-                return;
-            }
-
-            saveFormValues();
-            
-            sessionStorage.setItem('formSubmitted', 'true');
-
-            let formData = new FormData(this);
-            
-            fetch("/", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    showError(data.error);
-                } else {
-                    hideError();
-                    form.style.display = "none";
-                    downloadSection.style.display = "block";
-                    
-                   
-                    document.getElementById("uploaded-file-name").textContent = data.uploaded_filename;
-
-                    let alumnosLink = document.getElementById("download-alumnos");
-                    alumnosLink.href = data.processed_file_alumnos;
-                    alumnosLink.style.display = "inline-block";
-
-                    let notasLink = document.getElementById("download-notas");
-                    notasLink.href = data.processed_file_notas;
-                    notasLink.style.display = "inline-block";
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                showError("Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo.");
-            });
-        });
-
-        // Evento para el botón de reinicio
-        restartButton.addEventListener("click", function() {
-            // Restaurar formulario
-            form.style.display = "block";
-            downloadSection.style.display = "none";
-            
-            // Limpiar el input file
-            fileInput.value = "";
-            fileList.innerText = "No hay archivo seleccionado";
-            dropZone.classList.remove("file-loaded");
-            
-            hideError();
-            
-            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
-    </script>
+    <!-- Script principal de la aplicación -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
