@@ -11,9 +11,5 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ],
-  "env": {
-    "DEBUG": "False",
-    "LOG_LEVEL": "INFO"
-  }
+  ]
 }

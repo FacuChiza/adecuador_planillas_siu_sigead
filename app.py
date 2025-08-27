@@ -11,7 +11,7 @@ from werkzeug.exceptions import RequestEntityTooLarge
 from datetime import datetime
 from io import BytesIO
 
-from config.settings import *
+from config.settings import MAX_FILE_SIZE, ALLOWED_EXTENSIONS
 from utils.file_processor import FileProcessor
 
 # Diccionario global para almacenar archivos temporales
@@ -19,23 +19,9 @@ temp_files = {}
 
 def setup_logging(app):
     """Configurar logging de la aplicación"""
-    if not app.debug:
-        # Crear directorio de logs si no existe
-        log_dir = BASE_DIR / 'logs'
-        log_dir.mkdir(exist_ok=True)
-        
-        # Configurar handler de archivo
-        file_handler = RotatingFileHandler(
-            LOG_FILE, 
-            maxBytes=10240000, 
-            backupCount=10
-        )
-        file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
-        file_handler.setLevel(logging.INFO)
-        app.logger.addHandler(file_handler)
-        
-        app.logger.setLevel(logging.INFO)
-        app.logger.info('Aplicación iniciada')
+    # Configuración simple de logging para Vercel
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Aplicación iniciada')
 
 def create_app():
     """Factory function para crear la aplicación Flask"""
