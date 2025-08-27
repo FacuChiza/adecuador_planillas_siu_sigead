@@ -15,10 +15,5 @@
   "env": {
     "DEBUG": "False",
     "LOG_LEVEL": "INFO"
-  },
-  "functions": {
-    "app.py": {
-      "maxDuration": 30
-    }
   }
 }
